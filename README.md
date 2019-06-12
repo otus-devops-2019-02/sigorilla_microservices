@@ -22,3 +22,36 @@ eval $(docker-machine env docker-host)
 **Базовое имя проекта**
 
 Оно генерируется либо с помощью опции `-p` CLI, либо с помощью `COMPOSE_PROJECT_NAME`.
+
+## Gitlab
+
+### Setup
+
+```sh
+sudo su
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+add-apt-repository "deb https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+apt-get update
+apt-get install docker-ce docker-compose
+
+mkdir -p /srv/gitlab/config /srv/gitlab/data /srv/gitlab/logs
+cd /srv/gitlab/
+touch docker-compose.yml # copy of ./gitlab-ci/docker-compose.yml
+
+docker-compose up -d
+```
+
+### Setup runners
+
+```sh
+docker run -d --name gitlab-runner --restart always \
+    -v /srv/gitlab-runner/config:/etc/gitlab-runner \
+    -v /var/run/docker.sock:/var/run/docker.sock \
+    gitlab/gitlab-runner:latest
+docker exec -it gitlab-runner gitlab-runner register --run-untagged --locked=false
+# http://<YOUR-VM-IP>/
+# <TOKEN>
+# linux,xenial,ubuntu,docker
+# docker
+# alpine:latest
+```
