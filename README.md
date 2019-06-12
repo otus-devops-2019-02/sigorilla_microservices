@@ -1,5 +1,7 @@
 # sigorilla_microservices
 
+* https://hub.docker.com/u/sigorilla
+
 ## Setup docker machine
 
 ```sh
@@ -9,6 +11,13 @@ GOOGLE_PROJECT=docker-239511 docker-machine create --driver google \
     --google-zone europe-west1-b \
     docker-host
 eval $(docker-machine env docker-host)
+```
+
+## Shut down docker machine
+
+```sh
+eval $(docker-machine env --unset)
+docker-machine rm docker-host
 ```
 
 ## Host network driver
