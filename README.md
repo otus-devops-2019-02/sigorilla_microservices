@@ -2,6 +2,18 @@
 
 * https://hub.docker.com/u/sigorilla
 
+## How to update `src`
+
+```sh
+cd src
+git init
+git remote add origin git@github.com:express42/reddit.git
+git fetch
+git checkout origin/<branch> -ft
+rm -rf .git
+cd ..
+```
+
 ## Setup docker machine
 
 ```sh
