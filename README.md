@@ -32,6 +32,12 @@ docker-machine rm docker-host
 
 Оно генерируется либо с помощью опции `-p` CLI, либо с помощью `COMPOSE_PROJECT_NAME`.
 
+### Monitorings
+
+```sh
+docker-compose -f docker-compose-monitoring.yml up -d
+```
+
 ## Gitlab
 
 ### Setup
