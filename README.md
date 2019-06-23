@@ -82,3 +82,31 @@ docker exec -it gitlab-runner gitlab-runner register --run-untagged --locked=fal
 # docker
 # alpine:latest
 ```
+
+## Kubernetes
+
+### Minikube
+
+```sh
+minikube start
+cd kubernetes/reddit
+kubectl apply -f dev-namespace.yml
+kubectl apply -f . -n dev
+```
+
+### GKE
+
+После поднятия кластера необходимо выполнить следующую команду (пример). Точную команду можно получить в интерфейсе GCP:
+
+```sh
+gcloud container clusters get-credentials cluster-1 --zone us-central1-a --project docker-239511
+```
+
+Получаем адрес сервиса:
+
+```sh
+# Host
+kubectl get nodes -o wide
+# Port
+kubectl describe service ui -n dev | grep NodePort
+```
